@@ -1,9 +1,10 @@
 package com.luclx.rxandroid;
 
 import android.content.Context;
+import android.databinding.tool.reflection.Callable;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,14 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.Observable;
 import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     ColorAdapter mAdapter;
 
+    Observable<ColorResponse> rxMyColor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,30 +45,62 @@ public class MainActivity extends AppCompatActivity {
         mProgressBar = (ProgressBar) findViewById(R.id.progress);
         mColorList.setLayoutManager(new LinearLayoutManager(this));
 
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        final ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
         Observable<ColorResponse> rxMyColor = apiService.getMyColorRx();
+        Subscriber<ColorResponse> mObserver = new Subscriber<ColorResponse>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mProgressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onNext(ColorResponse colorResponse) {
+                mProgressBar.setVisibility(View.GONE);
+                if (colorResponse != null) {
+                    mColorList.setAdapter(new ColorAdapter(MainActivity.this, colorResponse.getmMyColorLst()));
+                }
+            }
+        };
+
         rxMyColor.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ColorResponse>() {
-                    @Override
-                    public void onCompleted() {
+                .subscribe(mObserver);
 
-                    }
+        rxMyColor.unsafeSubscribe(mObserver);
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mProgressBar.setVisibility(View.GONE);
-                    }
 
-                    @Override
-                    public void onNext(ColorResponse colorResponse) {
-                        mProgressBar.setVisibility(View.GONE);
-                        if (colorResponse != null) {
-                            mColorList.setAdapter(new ColorAdapter(MainActivity.this, colorResponse.getmMyColorLst()));
-                        }
-                    }
-                });
+//        Observable myColorObservable = Observable.fromCallable(new java.util.concurrent.Callable() {
+//            @Override
+//            public Object call() throws Exception {
+//                return apiService.getMyColorRx();
+//            }
+//        });
+
+//        rxMyColor = myColorObservable.subscribeOn(Schedulers.io())
+//                                        .observeOn(AndroidSchedulers.mainThread())
+//                                        .subscribe(new Observer() {
+//                                            @Override
+//                                            public void onCompleted() {
+//
+//                                            }
+//
+//                                            @Override
+//                                            public void onError(Throwable e) {
+//
+//                                            }
+//
+//                                            @Override
+//                                            public void onNext(Object o) {
+//
+//                                            }
+//                                        });
+
 //        Call<ColorResponse> call = apiService.getMyColor();
 //        call.enqueue(new Callback<ColorResponse>() {
 //            @Override
@@ -82,7 +116,10 @@ public class MainActivity extends AppCompatActivity {
 //                mProgressBar.setVisibility(View.GONE);
 //            }
 //        });
+
+        rxMyColor.unsubscribeOn(Schedulers.newThread());
     }
+
 
     public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHolder> {
         private Context mContext;

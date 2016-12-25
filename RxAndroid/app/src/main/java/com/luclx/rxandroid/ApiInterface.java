@@ -8,6 +8,7 @@ package com.luclx.rxandroid;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import rx.Observable;
+import rx.Subscription;
 
 public interface ApiInterface {
 
