@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         rxMyColor.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+//                .observeOn(Schedulers.mainThread())
                 .subscribe(mObserver);
 
         rxMyColor.unsafeSubscribe(mObserver);

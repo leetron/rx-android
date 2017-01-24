@@ -9,7 +9,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".my.MainActivity">
+        <activity android:name=".cheesefinder.CheeseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,7 +17,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".cheesefinder.CheeseActivity" />
     </application>
 
 </manifest>

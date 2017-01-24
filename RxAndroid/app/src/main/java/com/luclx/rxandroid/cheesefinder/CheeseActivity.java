@@ -24,6 +24,7 @@ package com.luclx.rxandroid.cheesefinder;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -52,16 +53,20 @@ public class CheeseActivity extends BaseSearchActivity {
         searchTextObservable = createClickButtonObservable();
         autoSearchObservable = createAutoSearchObservable();
         mergeObservable = Observable.merge(searchTextObservable, autoSearchObservable);
+
         disposable = mergeObservable.observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .doOnNext(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         showProgressBar();
+                        Log.e("Operator thread", Thread.currentThread().getName());
                     }
                 }).observeOn(Schedulers.io())
                 .map(new Function<String, List<String>>() {
                     @Override
                     public List<String> apply(String s) throws Exception {
+                        Log.e("Operator thread", Thread.currentThread().getName());
                         return mCheeseSearchEngine.search(s);
                     }
                 })
@@ -69,6 +74,7 @@ public class CheeseActivity extends BaseSearchActivity {
                 .subscribe(new Consumer<List<String>>() {
                     @Override
                     public void accept(List<String> strings) throws Exception {
+                        Log.e("Operator thread", Thread.currentThread().getName());
                         hideProgressBar();
                         showResult(strings);
                     }
