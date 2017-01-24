@@ -1,9 +1,7 @@
-package com.luclx.rxandroid;
+package com.luclx.rxandroid.my;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
-
-import javax.annotation.Generated;
 
 /**
  * Created by LucLX on 11/19/16.

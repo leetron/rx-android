@@ -17,7 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding{
+    dataBinding {
         enabled true
     }
 //    compileOptions {
@@ -37,13 +37,16 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.2.4'
+
+    //rx
+    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    //utils
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha3'
     compile 'com.android.support:recyclerview-v7:24.0.0'
     compile 'com.jakewharton:butterknife:7.0.1'
-
 
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -55,4 +58,9 @@ dependencies {
     //Gson
     compile 'com.google.code.gson:gson:2.4'
     compile 'javax.annotation:javax.annotation-api:1.2'
+
+    //
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }

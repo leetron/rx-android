@@ -1,4 +1,4 @@
-package com.luclx.rxandroid;
+package com.luclx.rxandroid.my;
 
 /**
  * Created by LucLX on 11/19/16.
@@ -8,7 +8,6 @@ package com.luclx.rxandroid;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import rx.Observable;
-import rx.Subscription;
 
 public interface ApiInterface {
 

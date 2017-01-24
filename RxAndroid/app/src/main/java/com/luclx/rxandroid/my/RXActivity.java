@@ -1,10 +1,13 @@
-package com.luclx.rxandroid;
+package com.luclx.rxandroid.my;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+
+import com.luclx.rxandroid.R;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.List;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
+import rx.functions.Func0;
 
 /**
  * Created by LucLX on 12/25/16.
@@ -25,6 +29,51 @@ public class RXActivity extends Activity {
         onRXFrom();
         onRXJust();
         onRXCreate();
+        onRXDefer();
+        testGC();
+    }
+
+    private void testGC() {
+        Something strong = new Something();
+        Something anotherStrong = strong;
+        strong = null;
+        anotherStrong = null;
+        System.gc();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Mọi thứ kết thúc");
+            }
+        }, 3000);
+    }
+
+    private void onRXDefer() {
+        Observer<String> mObserver = new Observer<String>() {
+            @Override
+            public void onCompleted() {
+                Log.e("LUC", "defer().onCompleted()");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.e("LUC", "defer().onNext() " + s);
+            }
+        };
+
+        final String myName = "Nguyen Van A";
+        Observable<String> stringObservable = Observable.defer(new Func0<Observable<String>>() {
+            @Override
+            public Observable<String> call() {
+                return Observable.just(myName);
+            }
+        });
+
+        stringObservable.subscribe(mObserver);
     }
 
     private void onRXFrom() {
@@ -108,5 +157,11 @@ public class RXActivity extends Activity {
         });
 
         liIntegerObservable.subscribe(mSubscriber);
+    }
+
+    public static class Something {
+        protected void finalize() {
+            System.out.println("Đây là lời của tôi trước khi vĩnh biệt");
+        }
     }
 }

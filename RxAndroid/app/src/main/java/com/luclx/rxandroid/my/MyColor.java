@@ -1,4 +1,4 @@
-package com.luclx.rxandroid;
+package com.luclx.rxandroid.my;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,4 +1,4 @@
-package com.luclx.rxandroid;
+package com.luclx.rxandroid.my;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
