@@ -54,15 +54,19 @@ public class CheeseActivity extends BaseSearchActivity {
         autoSearchObservable = createAutoSearchObservable();
         mergeObservable = Observable.merge(searchTextObservable, autoSearchObservable);
 
-        disposable = mergeObservable.observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+        disposable = mergeObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+//                .observeOn(Schedulers.io())
                 .doOnNext(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         showProgressBar();
                         Log.e("Operator thread", Thread.currentThread().getName());
                     }
-                }).observeOn(Schedulers.io())
+                })
+//                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.newThread())
                 .map(new Function<String, List<String>>() {
                     @Override
                     public List<String> apply(String s) throws Exception {
@@ -70,7 +74,7 @@ public class CheeseActivity extends BaseSearchActivity {
                         return mCheeseSearchEngine.search(s);
                     }
                 })
-                .observeOn(AndroidSchedulers.mainThread())
+//                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<String>>() {
                     @Override
                     public void accept(List<String> strings) throws Exception {
