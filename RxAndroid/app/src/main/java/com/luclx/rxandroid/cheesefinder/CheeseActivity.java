@@ -153,4 +153,8 @@ public class CheeseActivity extends BaseSearchActivity {
             }
         }).debounce(1000, TimeUnit.MILLISECONDS);
     }
+
+//    private Observable<String> createTestObservable(){
+//        return Observable.
+//    }
 }
