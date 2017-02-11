@@ -1,6 +1,5 @@
 package com.luclx.rxandroid.my;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.luclx.rxandroid.R;
 
@@ -20,9 +20,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import rx.Observable;
-import rx.Subscriber;
-import rx.schedulers.Schedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,10 +29,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mColorList;
 
     ProgressBar mProgressBar;
-
-    ColorAdapter mAdapter;
-
-    Observable<ColorResponse> rxMyColor;
+    CompositeDisposable compositeDisposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         final ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Observable<ColorResponse> rxMyColor = apiService.getMyColorRx();
+        // the old way
+/*        Observable<ColorResponse> rxMyColor = apiService.getMyColorRx();
         Subscriber<ColorResponse> mObserver = new Subscriber<ColorResponse>() {
             @Override
             public void onCompleted() {
@@ -62,51 +59,33 @@ public class MainActivity extends AppCompatActivity {
             public void onNext(ColorResponse colorResponse) {
                 mProgressBar.setVisibility(View.GONE);
                 if (colorResponse != null) {
-                    mColorList.setAdapter(new ColorAdapter(MainActivity.this, colorResponse.getmMyColorLst()));
+                    mColorList.setAdapter(new ColorAdapter(colorResponse.getmMyColorLst()));
                 }
             }
         };
 
-        rxMyColor.subscribeOn(Schedulers.newThread())
-//                .observeOn(Schedulers.mainThread())
-                .subscribe(mObserver);
+        rxMyColor.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> handleResponse(response), error -> handleError(error));
+        .subscribe(this::handleResponse, this::handleError);*/
 
-        rxMyColor.unsafeSubscribe(mObserver);
+        compositeDisposable = new CompositeDisposable();
+        compositeDisposable.add(apiService.getMyColorRx()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> handleResponse(response), error -> handleError(error)));
+        //or to get same result
+//                .subscribe(this::handleResponse, this::handleError));
 
 
-//        Observable myColorObservable = Observable.fromCallable(new java.util.concurrent.Callable() {
-//            @Override
-//            public Object call() throws Exception {
-//                return apiService.getMyColorRx();
-//            }
-//        });
-
-//        rxMyColor = myColorObservable.subscribeOn(Schedulers.io())
-//                                        .observeOn(AndroidSchedulers.mainThread())
-//                                        .subscribe(new Observer() {
-//                                            @Override
-//                                            public void onCompleted() {
-//
-//                                            }
-//
-//                                            @Override
-//                                            public void onError(Throwable e) {
-//
-//                                            }
-//
-//                                            @Override
-//                                            public void onNext(Object o) {
-//
-//                                            }
-//                                        });
-
+        // for normal retrofit
 //        Call<ColorResponse> call = apiService.getMyColor();
 //        call.enqueue(new Callback<ColorResponse>() {
 //            @Override
 //            public void onResponse(Call<ColorResponse> call, Response<ColorResponse> response) {
 //                mProgressBar.setVisibility(View.GONE);
 //                if (response.body() != null) {
-//                    mColorList.setAdapter(new ColorAdapter(MainActivity.this, response.body().getmMyColorLst()));
+//                    mColorList.setAdapter(new ColorAdapter(response.body().getmMyColorLst()));
 //                }
 //            }
 //
@@ -115,17 +94,30 @@ public class MainActivity extends AppCompatActivity {
 //                mProgressBar.setVisibility(View.GONE);
 //            }
 //        });
-
-        rxMyColor.unsubscribeOn(Schedulers.newThread());
     }
 
+    private void handleResponse(ColorResponse colorResponse) {
+        mProgressBar.setVisibility(View.GONE);
+        if (colorResponse != null) {
+            mColorList.setAdapter(new ColorAdapter(colorResponse.getmMyColorLst()));
+        }
+    }
+
+    private void handleError(Throwable error) {
+        mProgressBar.setVisibility(View.GONE);
+        Toast.makeText(this, "Error " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.clear();
+    }
 
     public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHolder> {
-        private Context mContext;
         private ArrayList<MyColor> mMyColorList;
 
-        public ColorAdapter(Context context, ArrayList<MyColor> mMyColorList) {
-            this.mContext = context;
+        public ColorAdapter(ArrayList<MyColor> mMyColorList) {
             this.mMyColorList = mMyColorList;
         }
 
@@ -137,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ColorViewHolder holder, int position) {
-            holder.mColorLable.setText(mMyColorList.get(position).getmColorName());
+            holder.mColorLabel.setText(mMyColorList.get(position).getmColorName());
             holder.mMain.setBackgroundColor(Color.parseColor((mMyColorList.get(position).getmHexColor())));
         }
 
@@ -150,12 +142,12 @@ public class MainActivity extends AppCompatActivity {
             @BindView(R.id.item_main)
             RelativeLayout mMain;
             @BindView(R.id.color_label)
-            TextView mColorLable;
+            TextView mColorLabel;
 
             ColorViewHolder(View v) {
                 super(v);
                 mMain = (RelativeLayout) v.findViewById(R.id.item_main);
-                mColorLable = (TextView) v.findViewById(R.id.color_label);
+                mColorLabel = (TextView) v.findViewById(R.id.color_label);
                 ButterKnife.bind(this, v);
             }
         }
