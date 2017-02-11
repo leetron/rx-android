@@ -25,9 +25,7 @@ package com.luclx.rxandroid.cheesefinder;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -35,10 +33,6 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Cancellable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 public class CheeseActivity extends BaseSearchActivity {
@@ -58,31 +52,23 @@ public class CheeseActivity extends BaseSearchActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
 //                .observeOn(Schedulers.io())
-                .doOnNext(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        showProgressBar();
-                        Log.e("Operator thread", Thread.currentThread().getName());
-                    }
+                .doOnNext(s -> {
+                    showProgressBar();
+                    Log.e("Operator thread", Thread.currentThread().getName());
                 })
 //                .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.newThread())
-                .map(new Function<String, List<String>>() {
-                    @Override
-                    public List<String> apply(String s) throws Exception {
-                        Log.e("Operator thread", Thread.currentThread().getName());
-                        return mCheeseSearchEngine.search(s);
-                    }
+                .map(s -> {
+                    Log.e("Operator thread", Thread.currentThread().getName());
+                    return mCheeseSearchEngine.search(s);
                 })
 //                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<String>>() {
-                    @Override
-                    public void accept(List<String> strings) throws Exception {
-                        Log.e("Operator thread", Thread.currentThread().getName());
-                        hideProgressBar();
-                        showResult(strings);
-                    }
-                });
+                .subscribe((strings) -> {
+                            Log.e("Operator thread", Thread.currentThread().getName());
+                            hideProgressBar();
+                            showResult(strings);
+                        }
+                );
     }
 
     @Override
@@ -97,25 +83,10 @@ public class CheeseActivity extends BaseSearchActivity {
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(final ObservableEmitter<String> emitter) throws Exception {
-                mSearchButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        emitter.onNext(mQueryEditText.getText().toString());
-                    }
-                });
-                emitter.setCancellable(new Cancellable() {
-                    @Override
-                    public void cancel() throws Exception {
-                        mSearchButton.setOnClickListener(null);
-                    }
-                });
+                mSearchButton.setOnClickListener(view -> emitter.onNext(mQueryEditText.getText().toString()));
+                emitter.setCancellable(() -> mSearchButton.setOnClickListener(null));
             }
-        }).filter(new Predicate<String>() {
-            @Override
-            public boolean test(String s) throws Exception {
-                return s.length() > 1;
-            }
-        });
+        }).filter(s -> s.length() > 1);
     }
 
     private Observable<String> createAutoSearchObservable() {
@@ -138,20 +109,9 @@ public class CheeseActivity extends BaseSearchActivity {
                     }
                 };
                 mQueryEditText.addTextChangedListener(textWatcher);
-
-                emitter.setCancellable(new Cancellable() {
-                    @Override
-                    public void cancel() throws Exception {
-                        mQueryEditText.addTextChangedListener(null);
-                    }
-                });
+                emitter.setCancellable(() -> mQueryEditText.addTextChangedListener(null));
             }
-        }).filter(new Predicate<String>() {
-            @Override
-            public boolean test(String s) throws Exception {
-                return s.length() > 1;
-            }
-        }).debounce(1000, TimeUnit.MILLISECONDS);
+        }).filter(s -> s.length() > 1).debounce(1000, TimeUnit.MILLISECONDS);
     }
 
 //    private Observable<String> createTestObservable(){
