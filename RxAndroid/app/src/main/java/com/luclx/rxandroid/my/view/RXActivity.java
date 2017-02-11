@@ -1,11 +1,9 @@
-package com.luclx.rxandroid.my;
+package com.luclx.rxandroid.my.view;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-
 
 import com.luclx.rxandroid.R;
 
@@ -19,6 +17,7 @@ import rx.functions.Func0;
 
 /**
  * Created by LucLX on 12/25/16.
+ * RxJava1 Example
  */
 
 public class RXActivity extends Activity {

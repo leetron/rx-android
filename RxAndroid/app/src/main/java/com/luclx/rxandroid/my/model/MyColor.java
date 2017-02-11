@@ -1,11 +1,14 @@
-package com.luclx.rxandroid.my;
+package com.luclx.rxandroid.my.model;
 
 import com.google.gson.annotations.SerializedName;
+
+import javax.annotation.Generated;
 
 /**
  * Created by LucLX on 11/19/16.
  */
 
+@Generated("org.jsonschema2pojo")
 public class MyColor {
     @SerializedName("colorName")
     private String mColorName;

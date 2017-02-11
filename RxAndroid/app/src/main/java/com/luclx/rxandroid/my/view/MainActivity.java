@@ -1,4 +1,4 @@
-package com.luclx.rxandroid.my;
+package com.luclx.rxandroid.my.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,8 +14,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.luclx.rxandroid.R;
+import com.luclx.rxandroid.my.api.ColorApiService;
+import com.luclx.rxandroid.my.application.BaseApplication;
+import com.luclx.rxandroid.my.di.component.DaggerColorComponent;
+import com.luclx.rxandroid.my.di.module.ColorModule;
+import com.luclx.rxandroid.my.model.ColorResponse;
+import com.luclx.rxandroid.my.model.MyColor;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +32,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
+
+    @Inject
+    ColorApiService apiService;
 
     @BindView(R.id.color_list)
     RecyclerView mColorList;
@@ -40,7 +51,10 @@ public class MainActivity extends AppCompatActivity {
         mProgressBar = (ProgressBar) findViewById(R.id.progress);
         mColorList.setLayoutManager(new LinearLayoutManager(this));
 
-        final ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        DaggerColorComponent.builder()
+                .applicationComponent(BaseApplication.getInstance().getApplicationComponent())
+                .colorModule(new ColorModule())
+                .build().inject(MainActivity.this);
 
         // the old way
 /*        Observable<ColorResponse> rxMyColor = apiService.getMyColorRx();

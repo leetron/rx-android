@@ -1,15 +1,17 @@
-package com.luclx.rxandroid.my;
+package com.luclx.rxandroid.my.api;
 
 /**
  * Created by LucLX on 11/19/16.
  */
 
 
+import com.luclx.rxandroid.my.model.ColorResponse;
+
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface ApiInterface {
+public interface ColorApiService {
 
     @GET("5821f8e5e4b0a828bd208d4f")
     Call<ColorResponse> getMyColor();

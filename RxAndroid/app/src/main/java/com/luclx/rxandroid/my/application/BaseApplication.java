@@ -1,0 +1,43 @@
+package com.luclx.rxandroid.my.application;
+
+import android.app.Application;
+
+import com.luclx.rxandroid.my.di.component.ApplicationComponent;
+import com.luclx.rxandroid.my.di.component.DaggerApplicationComponent;
+import com.luclx.rxandroid.my.di.module.ApplicationModule;
+import com.squareup.leakcanary.LeakCanary;
+
+/**
+ * Created by LucLX on 11/19/16.
+ */
+
+public class BaseApplication extends Application {
+    public static final String BASE_URL = "https://jsonblob.com/api/jsonBlob/";
+
+    private ApplicationComponent applicationComponent;
+
+    private static BaseApplication mInstance;
+
+    private synchronized void initInstance() {
+        mInstance = this;
+    }
+
+    public static BaseApplication getInstance() {
+        return mInstance;
+    }
+
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        initInstance();
+        LeakCanary.install(this);
+        applicationComponent = DaggerApplicationComponent
+                .builder()
+                .applicationModule(new ApplicationModule(this, BASE_URL))
+                .build();
+    }
+}

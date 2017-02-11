@@ -1,7 +1,11 @@
-package com.luclx.rxandroid.my;
+package com.luclx.rxandroid.my.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.luclx.rxandroid.my.model.MyColor;
+
 import java.util.ArrayList;
+
+import javax.annotation.Generated;
 
 /**
  * Created by LucLX on 11/19/16.
@@ -11,7 +15,7 @@ import java.util.ArrayList;
  * Generate is optional, please read more
  */
 
-//@Generated("org.jsonschema2pojo")
+@Generated("org.jsonschema2pojo")
 public class ColorResponse {
     @SerializedName("colorsArray")
     private ArrayList<MyColor> mMyColorLst;
