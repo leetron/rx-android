@@ -1,4 +1,4 @@
-package com.luclx.rxandroid.my.di.scope;
+package com.luclx.rxandroid.di.scope;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

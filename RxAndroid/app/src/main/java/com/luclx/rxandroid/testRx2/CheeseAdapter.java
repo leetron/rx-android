@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.luclx.rxandroid.cheesefinder;
+package com.luclx.rxandroid.testRx2;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

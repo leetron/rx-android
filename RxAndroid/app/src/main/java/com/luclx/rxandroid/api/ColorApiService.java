@@ -1,13 +1,13 @@
-package com.luclx.rxandroid.my.api;
+package com.luclx.rxandroid.api;
 
 /**
  * Created by LucLX on 11/19/16.
  */
 
 
-import com.luclx.rxandroid.my.model.ColorResponse;
+import com.luclx.rxandroid.mvp.model.ColorResponse;
 
-import io.reactivex.Observable;
+import rx.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

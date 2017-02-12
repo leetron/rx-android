@@ -1,4 +1,4 @@
-package com.luclx.rxandroid.my.view;
+package com.luclx.rxandroid.testRx2;
 
 import android.app.Activity;
 import android.os.Bundle;

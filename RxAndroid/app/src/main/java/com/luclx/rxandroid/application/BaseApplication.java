@@ -1,10 +1,10 @@
-package com.luclx.rxandroid.my.application;
+package com.luclx.rxandroid.application;
 
 import android.app.Application;
 
-import com.luclx.rxandroid.my.di.component.ApplicationComponent;
-import com.luclx.rxandroid.my.di.component.DaggerApplicationComponent;
-import com.luclx.rxandroid.my.di.module.ApplicationModule;
+import com.luclx.rxandroid.di.component.ApplicationComponent;
+import com.luclx.rxandroid.di.component.DaggerApplicationComponent;
+import com.luclx.rxandroid.di.module.ApplicationModule;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -15,6 +15,7 @@ public class BaseApplication extends Application {
     public static final String BASE_URL = "https://jsonblob.com/api/jsonBlob/";
 
     private ApplicationComponent applicationComponent;
+
 
     private static BaseApplication mInstance;
 
@@ -30,6 +31,7 @@ public class BaseApplication extends Application {
         return applicationComponent;
     }
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -39,5 +41,6 @@ public class BaseApplication extends Application {
                 .builder()
                 .applicationModule(new ApplicationModule(this, BASE_URL))
                 .build();
+
     }
 }

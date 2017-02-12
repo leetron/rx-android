@@ -1,6 +1,7 @@
-package com.luclx.rxandroid.my.di.module;
+package com.luclx.rxandroid.di.module;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -13,6 +14,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -32,8 +34,8 @@ public class ApplicationModule {
     // use for retrofit
     @Singleton
     @Provides
-    RxJava2CallAdapterFactory provideRxJava2CallAdapterFactory() {
-        return RxJava2CallAdapterFactory.create();
+    RxJavaCallAdapterFactory provideRxJavaCallAdapterFactory() {
+        return RxJavaCallAdapterFactory.create();
     }
 
     //use for retrofit
@@ -67,11 +69,11 @@ public class ApplicationModule {
 
     @Singleton
     @Provides
-    Retrofit provideRetrofit(@Named("ok-1") OkHttpClient client, RxJava2CallAdapterFactory rxJava2CallAdapterFactory, GsonConverterFactory gsonConverterFactory) {
+    Retrofit provideRetrofit(@Named("ok-1") OkHttpClient client, RxJavaCallAdapterFactory rxJavaCallAdapterFactory, GsonConverterFactory gsonConverterFactory) {
         return new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
                 .client(client)
-                .addCallAdapterFactory(rxJava2CallAdapterFactory)
+                .addCallAdapterFactory(rxJavaCallAdapterFactory)
                 .addConverterFactory(gsonConverterFactory)
                 .build();
 
@@ -81,5 +83,12 @@ public class ApplicationModule {
     @Provides
     Context provideContext() {
         return mContext;
+    }
+
+    @Singleton
+    @Provides
+    SharedPreferences provideSharedPreferences(Context context) {
+//        return PreferenceManager.getDefaultSharedPreferences(mContext);
+        return context.getSharedPreferences("MYRe", Context.MODE_PRIVATE);
     }
 }

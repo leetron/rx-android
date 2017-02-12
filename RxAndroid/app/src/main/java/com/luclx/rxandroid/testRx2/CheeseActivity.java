@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.luclx.rxandroid.cheesefinder;
+package com.luclx.rxandroid.testRx2;
 
 import android.text.Editable;
 import android.text.TextWatcher;

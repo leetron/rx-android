@@ -1,7 +1,6 @@
-package com.luclx.rxandroid.my.model;
+package com.luclx.rxandroid.mvp.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.luclx.rxandroid.my.model.MyColor;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,9 @@
-package com.luclx.rxandroid.my.di.component;
+package com.luclx.rxandroid.di.component;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
-import com.luclx.rxandroid.my.di.module.ApplicationModule;
+import com.luclx.rxandroid.di.module.ApplicationModule;
 
 import javax.inject.Singleton;
 
@@ -19,4 +20,6 @@ public interface ApplicationComponent {
     Retrofit exposeRetrofit();
 
     Context exposeContext();
+
+    SharedPreferences exposeSharedPreferences();
 }

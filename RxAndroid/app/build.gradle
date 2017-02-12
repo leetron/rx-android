@@ -45,6 +45,7 @@ dependencies {
 
     // app combat
     compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.0.0'
 
     //dagger
     provided 'com.google.dagger:dagger-compiler:2.1'
@@ -55,10 +56,10 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.0.1'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
-    //utils
-    compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha3'
-    compile 'com.android.support:recyclerview-v7:24.0.0'
+    //rx1
+    compile 'io.reactivex:rxandroid:0.24.0'
+
+    //bind view
     compile 'com.jakewharton:butterknife:7.0.1'
 
     //Retrofit2
@@ -66,9 +67,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-//    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
-//    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta1'
-//    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 
     //Gson
     compile 'com.google.code.gson:gson:2.4'

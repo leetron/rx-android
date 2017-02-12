@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.luclx.rxandroid.cheesefinder;
+package com.luclx.rxandroid.testRx2;
 
 import java.util.LinkedList;
 import java.util.List;

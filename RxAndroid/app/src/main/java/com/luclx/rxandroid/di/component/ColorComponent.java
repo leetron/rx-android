@@ -1,8 +1,8 @@
-package com.luclx.rxandroid.my.di.component;
+package com.luclx.rxandroid.di.component;
 
-import com.luclx.rxandroid.my.view.MainActivity;
-import com.luclx.rxandroid.my.di.module.ColorModule;
-import com.luclx.rxandroid.my.di.scope.ActivityScope;
+import com.luclx.rxandroid.di.module.ColorModule;
+import com.luclx.rxandroid.di.scope.ActivityScope;
+import com.luclx.rxandroid.mvp.view.MainActivity;
 
 import dagger.Component;
 
