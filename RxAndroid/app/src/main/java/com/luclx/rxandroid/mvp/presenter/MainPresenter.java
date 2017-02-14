@@ -9,15 +9,17 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Observer;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Created by LucLX on 2/12/17.
  */
 
 public class MainPresenter extends BasePresenter<MainView> implements Observer<ColorResponse> {
-//    @Inject
+    //    @Inject
     ColorApiService apiService;
 
     @Inject
@@ -32,7 +34,7 @@ public class MainPresenter extends BasePresenter<MainView> implements Observer<C
     }
 
     @Override
-    public void onCompleted() {
+    public void onComplete() {
         getView().onHideDialog();
         getView().onShowToast("Loading completed!");
     }
@@ -41,6 +43,10 @@ public class MainPresenter extends BasePresenter<MainView> implements Observer<C
     public void onError(Throwable e) {
         getView().onHideDialog();
         getView().onShowToast("Loading Error");
+    }
+
+    @Override
+    public void onSubscribe(Disposable d) {
     }
 
     @Override

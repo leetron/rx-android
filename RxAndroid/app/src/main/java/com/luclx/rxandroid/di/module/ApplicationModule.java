@@ -34,8 +34,8 @@ public class ApplicationModule {
     // use for retrofit
     @Singleton
     @Provides
-    RxJavaCallAdapterFactory provideRxJavaCallAdapterFactory() {
-        return RxJavaCallAdapterFactory.create();
+    RxJava2CallAdapterFactory provideRxJava2CallAdapterFactory() {
+        return RxJava2CallAdapterFactory.create();
     }
 
     //use for retrofit
@@ -69,11 +69,11 @@ public class ApplicationModule {
 
     @Singleton
     @Provides
-    Retrofit provideRetrofit(@Named("ok-1") OkHttpClient client, RxJavaCallAdapterFactory rxJavaCallAdapterFactory, GsonConverterFactory gsonConverterFactory) {
+    Retrofit provideRetrofit(@Named("ok-1") OkHttpClient client, RxJava2CallAdapterFactory rxJava2CallAdapterFactory, GsonConverterFactory gsonConverterFactory) {
         return new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
                 .client(client)
-                .addCallAdapterFactory(rxJavaCallAdapterFactory)
+                .addCallAdapterFactory(rxJava2CallAdapterFactory)
                 .addConverterFactory(gsonConverterFactory)
                 .build();
 

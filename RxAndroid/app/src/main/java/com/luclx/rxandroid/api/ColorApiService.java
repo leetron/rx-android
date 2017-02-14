@@ -7,7 +7,7 @@ package com.luclx.rxandroid.api;
 
 import com.luclx.rxandroid.mvp.model.ColorResponse;
 
-import rx.Observable;
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
