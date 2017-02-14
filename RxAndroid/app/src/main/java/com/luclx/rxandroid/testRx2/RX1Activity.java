@@ -20,7 +20,7 @@ import rx.functions.Func0;
  * RxJava1 Example
  */
 
-public class RXActivity extends Activity {
+public class RX1Activity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
