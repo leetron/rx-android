@@ -12,6 +12,8 @@ import javax.inject.Scope;
  * @version 1.0.0
  */
 @Scope
-@Retention(RetentionPolicy.RUNTIME)
+//@Retention(RetentionPolicy.RUNTIME)
+//Annotations are to be recorded in the class file by the compiler and retained
+//        by the VM at run time, so they may be read reflectively.
 public @interface ActivityScope {
 }
