@@ -1,6 +1,6 @@
 package com.luclx.rxandroid.mvp.presenter;
 
-import com.luclx.rxandroid.api.ColorApiService;
+import com.luclx.rxandroid.net.API;
 import com.luclx.rxandroid.mvp.model.ColorResponse;
 import com.luclx.rxandroid.mvp.model.MyColor;
 import com.luclx.rxandroid.mvp.view.MainView;
@@ -20,10 +20,10 @@ import io.reactivex.disposables.Disposable;
 
 public class MainPresenter extends BasePresenter<MainView> implements Observer<ColorResponse> {
     //    @Inject
-    ColorApiService apiService;
+    API apiService;
 
     @Inject
-    public MainPresenter(ColorApiService apiService) {
+    public MainPresenter(API apiService) {
         this.apiService = apiService;
     }
 

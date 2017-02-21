@@ -1,6 +1,6 @@
 package com.luclx.rxandroid.di.module;
 
-import com.luclx.rxandroid.api.ColorApiService;
+import com.luclx.rxandroid.net.API;
 import com.luclx.rxandroid.di.scope.ActivityScope;
 import com.luclx.rxandroid.mvp.view.MainView;
 
@@ -22,8 +22,8 @@ public class ColorModule {
 
     @ActivityScope
     @Provides
-    ColorApiService provideColorApiService(Retrofit retrofit) {
-        return retrofit.create(ColorApiService.class);
+    API provideApiService(Retrofit retrofit) {
+        return retrofit.create(API.class);
     }
 
     @ActivityScope
