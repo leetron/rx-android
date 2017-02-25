@@ -1,6 +1,8 @@
 package com.luclx.rxandroid.mvvm.di.modules;
 
 
+import com.luclx.rxandroid.mvvm.di.AScope;
+
 import javax.inject.Named;
 
 import dagger.Module;
@@ -23,7 +25,7 @@ public class PhotoModule {
     }
 
     @Provides
-//    @AScope
+    @AScope
     @Named("id")
     public String getUserId() {
         return id;

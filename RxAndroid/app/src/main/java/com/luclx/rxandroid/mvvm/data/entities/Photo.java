@@ -1,4 +1,4 @@
-package com.luclx.rxandroid.mvvm.data.photo;
+package com.luclx.rxandroid.mvvm.data.entities;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

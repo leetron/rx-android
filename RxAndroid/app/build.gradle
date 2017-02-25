@@ -57,7 +57,7 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     //rx1
-    compile 'io.reactivex:rxandroid:0.24.0'
+//    compile 'io.reactivex:rxandroid:0.24.0'
 
     //bind view
     compile 'com.jakewharton:butterknife:7.0.1'
