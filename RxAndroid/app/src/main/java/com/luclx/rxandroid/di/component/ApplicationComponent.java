@@ -19,7 +19,5 @@ import retrofit2.Retrofit;
 public interface ApplicationComponent {
     Retrofit exposeRetrofit();
 
-    Context exposeContext();
-
     SharedPreferences exposeSharedPreferences();
 }

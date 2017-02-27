@@ -2,6 +2,7 @@ package com.luclx.rxandroid.application;
 
 import android.app.Application;
 
+import com.luclx.rxandroid.data.net.APIConfig;
 import com.luclx.rxandroid.di.component.ApplicationComponent;
 import com.luclx.rxandroid.di.component.DaggerApplicationComponent;
 import com.luclx.rxandroid.di.module.ApplicationModule;
@@ -12,7 +13,6 @@ import com.squareup.leakcanary.LeakCanary;
  */
 
 public class BaseApplication extends Application {
-    public static final String BASE_URL = "https://jsonblob.com/api/jsonBlob/";
 
     private ApplicationComponent applicationComponent;
 
@@ -39,7 +39,7 @@ public class BaseApplication extends Application {
         LeakCanary.install(this);
         applicationComponent = DaggerApplicationComponent
                 .builder()
-                .applicationModule(new ApplicationModule(this, BASE_URL))
+                .applicationModule(new ApplicationModule(this, APIConfig.API_BASE_URL))
                 .build();
 
     }

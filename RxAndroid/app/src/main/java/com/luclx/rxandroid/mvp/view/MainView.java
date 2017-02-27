@@ -1,6 +1,6 @@
 package com.luclx.rxandroid.mvp.view;
 
-import com.luclx.rxandroid.mvp.model.MyColor;
+import com.luclx.rxandroid.data.entity.Color;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public interface MainView extends BaseView {
-    void onColorLoaded(List<MyColor> colors);
+    void onColorLoaded(List<Color> colors);
 
     void onShowDialog(String message);
 

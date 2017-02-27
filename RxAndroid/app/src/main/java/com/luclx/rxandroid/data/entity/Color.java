@@ -1,5 +1,6 @@
-package com.luclx.rxandroid.mvp.model;
+package com.luclx.rxandroid.data.entity;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import javax.annotation.Generated;
@@ -9,10 +10,12 @@ import javax.annotation.Generated;
  */
 
 @Generated("org.jsonschema2pojo")
-public class MyColor {
+public class Color {
     @SerializedName("colorName")
+    @Expose
     private String mColorName;
     @SerializedName("hexValue")
+    @Expose
     private String mHexColor;
 
     public String getmColorName() {

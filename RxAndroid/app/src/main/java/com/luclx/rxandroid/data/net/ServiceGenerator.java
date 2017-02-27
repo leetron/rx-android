@@ -1,7 +1,6 @@
-package com.luclx.rxandroid.net;
+package com.luclx.rxandroid.data.net;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.luclx.rxandroid.mvvm.data.config.APIConfig;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,15 +15,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ServiceGenerator {
-    private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(APIConfig.API_BASE_URL)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create());
-
     public static <S> S createService(Class<S> serviceClass) {
-        Retrofit retrofit = builder.client(getClient(getLogInterceptor()))
-                .build();
-
-        return retrofit.create(serviceClass);
+        return new Retrofit.Builder().baseUrl(APIConfig.API_BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(getClient(getLogInterceptor()))
+                .build()
+                .create(serviceClass);
     }
 
     protected static OkHttpClient getClient(Interceptor... interceptors) {
@@ -34,8 +31,10 @@ public class ServiceGenerator {
             httpClient.addInterceptor(interceptor);
         }
 
-        httpClient.connectTimeout(APIConfig.CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS);
-        return httpClient.build();
+        return httpClient
+                .connectTimeout(APIConfig.CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
+                .readTimeout(APIConfig.CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
+                .build();
     }
 
     protected static Interceptor getLogInterceptor() {

@@ -1,4 +1,4 @@
-package com.luclx.rxandroid.base;
+package com.luclx.rxandroid.mvp.view.base;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;

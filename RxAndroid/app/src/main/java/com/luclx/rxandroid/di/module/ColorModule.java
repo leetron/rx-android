@@ -1,6 +1,6 @@
 package com.luclx.rxandroid.di.module;
 
-import com.luclx.rxandroid.net.API;
+import com.luclx.rxandroid.data.net.API;
 import com.luclx.rxandroid.di.scope.ActivityScope;
 import com.luclx.rxandroid.mvp.view.MainView;
 
@@ -18,12 +18,6 @@ public class ColorModule {
 
     public ColorModule(MainView mainView) {
         this.mainView = mainView;
-    }
-
-    @ActivityScope
-    @Provides
-    API provideApiService(Retrofit retrofit) {
-        return retrofit.create(API.class);
     }
 
     @ActivityScope

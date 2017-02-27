@@ -1,6 +1,5 @@
 package com.luclx.rxandroid.mvp.view.adapter;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.luclx.rxandroid.R;
-import com.luclx.rxandroid.mvp.model.MyColor;
+import com.luclx.rxandroid.data.entity.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +21,15 @@ import butterknife.ButterKnife;
  */
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHolder> {
-    private ArrayList<MyColor> mMyColorList = new ArrayList<>();
+    private ArrayList<Color> mColorList = new ArrayList<>();
 
-    public void setMyColorList(List<MyColor> colorList) {
-        this.mMyColorList.addAll(colorList);
+    public void setMyColorList(List<Color> colorList) {
+        this.mColorList.addAll(colorList);
         notifyDataSetChanged();
     }
 
     public void clearColors() {
-        this.mMyColorList.clear();
+        this.mColorList.clear();
         notifyDataSetChanged();
     }
 
@@ -42,13 +41,13 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
 
     @Override
     public void onBindViewHolder(ColorViewHolder holder, int position) {
-        holder.mColorLabel.setText(mMyColorList.get(position).getmColorName());
-        holder.mMain.setBackgroundColor(Color.parseColor((mMyColorList.get(position).getmHexColor())));
+        holder.mColorLabel.setText(mColorList.get(position).getmColorName());
+        holder.mMain.setBackgroundColor(android.graphics.Color.parseColor((mColorList.get(position).getmHexColor())));
     }
 
     @Override
     public int getItemCount() {
-        return this.mMyColorList.size();
+        return this.mColorList.size();
     }
 
     public class ColorViewHolder extends RecyclerView.ViewHolder {
