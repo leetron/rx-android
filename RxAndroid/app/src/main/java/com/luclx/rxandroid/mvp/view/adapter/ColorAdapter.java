@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.luclx.rxandroid.R;
-import com.luclx.rxandroid.data.entity.Color;
+import com.luclx.rxandroid.mvp.model.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +41,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
 
     @Override
     public void onBindViewHolder(ColorViewHolder holder, int position) {
-        holder.mColorLabel.setText(mColorList.get(position).getmColorName());
-        holder.mMain.setBackgroundColor(android.graphics.Color.parseColor((mColorList.get(position).getmHexColor())));
+        holder.mColorLabel.setText(mColorList.get(position).getName());
+        holder.mMain.setBackgroundColor(android.graphics.Color.parseColor((mColorList.get(position).getValue())));
     }
 
     @Override

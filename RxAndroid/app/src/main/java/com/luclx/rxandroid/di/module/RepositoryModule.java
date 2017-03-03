@@ -7,12 +7,14 @@ import com.luclx.rxandroid.repository.impl.ColorRepositoryImpl;
 
 import javax.inject.Singleton;
 
+import dagger.Module;
 import dagger.Provides;
 
 /**
  * Created by lucle on 2/27/17.
  */
 
+@Module
 public class RepositoryModule {
 
     @Singleton

@@ -22,6 +22,8 @@ public class ServiceModule {
         return ServiceGenerator.createService(API.class);
     }
 
+    @Singleton
+    @Provides
     public ColorService getColorService(ColorServiceImpl service) {
         return service;
     }

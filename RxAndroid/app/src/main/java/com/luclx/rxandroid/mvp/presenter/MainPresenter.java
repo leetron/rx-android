@@ -1,8 +1,8 @@
 package com.luclx.rxandroid.mvp.presenter;
 
-import com.luclx.rxandroid.data.net.API;
-import com.luclx.rxandroid.data.entity.Color;
+import com.luclx.rxandroid.mvp.model.Color;
 import com.luclx.rxandroid.mvp.view.MainView;
+import com.luclx.rxandroid.usecase.GetColorList;
 
 import java.util.List;
 
@@ -19,16 +19,16 @@ import io.reactivex.disposables.Disposable;
 
 public class MainPresenter extends BasePresenter<MainView> implements Observer<List<Color>> {
     //    @Inject
-    API apiService;
+    GetColorList getColorList;
 
     @Inject
-    public MainPresenter(API apiService) {
-        this.apiService = apiService;
+    public MainPresenter(GetColorList getColorList) {
+        this.getColorList = getColorList;
     }
 
     public void getColor() {
         getView().onShowDialog("Loading ......");
-        Observable<List<Color>> colorResponseObserver = this.apiService.getMyColorRx();
+        Observable<List<Color>> colorResponseObserver = this.getColorList.getColors();
         subscribe(colorResponseObserver, this);
     }
 

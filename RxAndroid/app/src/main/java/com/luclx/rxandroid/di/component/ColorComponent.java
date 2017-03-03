@@ -10,7 +10,8 @@ import dagger.Component;
  * Created by LucLX on 11/19/16.
  */
 @ActivityScope
-@Component(dependencies = ApplicationComponent.class, modules = ColorModule.class)
+@Component(dependencies = ApplicationComponent.class
+        , modules = ColorModule.class)
 public interface ColorComponent {
     void inject(MainActivity activity);
 }

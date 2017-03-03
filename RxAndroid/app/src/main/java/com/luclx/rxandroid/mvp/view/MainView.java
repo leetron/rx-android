@@ -1,6 +1,6 @@
 package com.luclx.rxandroid.mvp.view;
 
-import com.luclx.rxandroid.data.entity.Color;
+import com.luclx.rxandroid.mvp.model.Color;
 
 import java.util.List;
 

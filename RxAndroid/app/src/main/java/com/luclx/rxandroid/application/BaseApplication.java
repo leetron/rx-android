@@ -2,7 +2,6 @@ package com.luclx.rxandroid.application;
 
 import android.app.Application;
 
-import com.luclx.rxandroid.data.net.APIConfig;
 import com.luclx.rxandroid.di.component.ApplicationComponent;
 import com.luclx.rxandroid.di.component.DaggerApplicationComponent;
 import com.luclx.rxandroid.di.module.ApplicationModule;
@@ -37,9 +36,8 @@ public class BaseApplication extends Application {
         super.onCreate();
         initInstance();
         LeakCanary.install(this);
-        applicationComponent = DaggerApplicationComponent
-                .builder()
-                .applicationModule(new ApplicationModule(this, APIConfig.API_BASE_URL))
+        applicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(BaseApplication.getInstance()))
                 .build();
 
     }

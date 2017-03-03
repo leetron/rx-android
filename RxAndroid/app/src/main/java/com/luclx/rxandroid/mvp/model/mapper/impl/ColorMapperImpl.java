@@ -7,6 +7,8 @@ import com.luclx.rxandroid.mvp.model.mapper.ColorMapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by lucle on 2/27/17.
  */
@@ -14,6 +16,12 @@ import java.util.List;
 public class ColorMapperImpl
         extends BaseMapper
         implements ColorMapper<com.luclx.rxandroid.data.entity.Color, Color> {
+
+    @Inject
+    public ColorMapperImpl() {
+
+    }
+
     @Override
     public Color transform(com.luclx.rxandroid.data.entity.Color color) {
         this.checkNull(color);

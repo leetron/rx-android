@@ -23,7 +23,7 @@ public class ColorRepositoryImpl
     private List<Color> mColorList;
 
     @Inject
-    public ColorRepositoryImpl(ColorService mService, ColorMapper<com.luclx.rxandroid.data.entity.Color, Color> mMapper) {
+    public ColorRepositoryImpl(ColorService mService, ColorMapper mMapper) {
         this.mService = mService;
         this.mMapper = mMapper;
     }

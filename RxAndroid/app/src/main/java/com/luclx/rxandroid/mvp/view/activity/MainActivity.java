@@ -7,13 +7,13 @@ import android.widget.Toast;
 
 import com.luclx.rxandroid.R;
 import com.luclx.rxandroid.application.BaseApplication;
-import com.luclx.rxandroid.mvp.view.base.BaseActivity;
 import com.luclx.rxandroid.di.component.DaggerColorComponent;
 import com.luclx.rxandroid.di.module.ColorModule;
-import com.luclx.rxandroid.data.entity.Color;
+import com.luclx.rxandroid.mvp.model.Color;
 import com.luclx.rxandroid.mvp.presenter.MainPresenter;
 import com.luclx.rxandroid.mvp.view.MainView;
 import com.luclx.rxandroid.mvp.view.adapter.ColorAdapter;
+import com.luclx.rxandroid.mvp.view.base.BaseActivity;
 
 import java.util.List;
 
