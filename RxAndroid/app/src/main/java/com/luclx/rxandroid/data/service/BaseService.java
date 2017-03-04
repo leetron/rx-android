@@ -7,7 +7,7 @@ import retrofit2.Response;
  * Created by lucle on 2/27/17.
  */
 
-public abstract class ApiService {
+public abstract class BaseService {
     protected <T> Observable<T> catchError(Response<T> response) {
         return Observable.create(emitter -> {
             if (response.isSuccessful()) {

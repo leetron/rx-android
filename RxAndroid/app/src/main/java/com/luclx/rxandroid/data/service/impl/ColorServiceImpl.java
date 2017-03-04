@@ -2,7 +2,7 @@ package com.luclx.rxandroid.data.service.impl;
 
 import com.luclx.rxandroid.data.entity.Color;
 import com.luclx.rxandroid.data.net.API;
-import com.luclx.rxandroid.data.service.ApiService;
+import com.luclx.rxandroid.data.service.BaseService;
 import com.luclx.rxandroid.data.service.ColorService;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class ColorServiceImpl
-        extends ApiService
+        extends BaseService
         implements ColorService {
     private API mClient;
 

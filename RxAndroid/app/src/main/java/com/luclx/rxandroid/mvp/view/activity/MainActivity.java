@@ -42,7 +42,6 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     protected void onViewReady() {
         super.onViewReady();
-        initializeRecycleView();
         loadColors();
         sharedPreferences.edit().putString("text1", "Hello world!").commit();
         Toast.makeText(MainActivity.this, sharedPreferences.getString("text1", "NO EXIST"), Toast.LENGTH_LONG).show();
@@ -58,7 +57,9 @@ public class MainActivity extends BaseActivity implements MainView {
                 .inject(MainActivity.this);
     }
 
-    private void initializeRecycleView() {
+    @Override
+    protected void initSpecialView() {
+        super.initSpecialView();
         mColorList.setLayoutManager(new LinearLayoutManager(this));
         mColorList.setHasFixedSize(true);
         colorAdapter = new ColorAdapter();
@@ -72,6 +73,7 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mainPresenter.doUnsubscribe();
     }
 
     @Override

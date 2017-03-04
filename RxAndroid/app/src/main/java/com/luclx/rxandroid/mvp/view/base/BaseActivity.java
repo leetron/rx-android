@@ -21,11 +21,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getContentView());
         ButterKnife.bind(this);
         onViewReady();
+        initSpecialView();
     }
 
     @CallSuper
     protected void onViewReady() {
         initDaggerDependency();
+    }
+
+    protected void initSpecialView(){
+
     }
 
     //for child override

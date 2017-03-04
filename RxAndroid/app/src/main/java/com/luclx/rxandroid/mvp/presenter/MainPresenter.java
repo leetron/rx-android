@@ -20,6 +20,7 @@ import io.reactivex.disposables.Disposable;
 public class MainPresenter extends BasePresenter<MainView> implements Observer<List<Color>> {
     //    @Inject
     GetColorList getColorList;
+    Observable<List<Color>> colorResponseObserver;
 
     @Inject
     public MainPresenter(GetColorList getColorList) {
@@ -28,7 +29,7 @@ public class MainPresenter extends BasePresenter<MainView> implements Observer<L
 
     public void getColor() {
         getView().onShowDialog("Loading ......");
-        Observable<List<Color>> colorResponseObserver = this.getColorList.getColors();
+        colorResponseObserver = this.getColorList.getColors();
         subscribe(colorResponseObserver, this);
     }
 
@@ -52,5 +53,10 @@ public class MainPresenter extends BasePresenter<MainView> implements Observer<L
     public void onNext(List<Color> colors) {
         getView().onClearItems();
         getView().onColorLoaded(colors);
+    }
+
+    public void doUnsubscribe() {
+        colorResponseObserver.doOnDispose(() -> {
+        });
     }
 }
