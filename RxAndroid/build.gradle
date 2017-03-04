@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.3.0'
         classpath 'me.tatarka:gradle-retrolambda:3.3.1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
@@ -19,4 +19,37 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+// Define versions in a single place
+ext{
+    //identity
+    productId = 'com.luclx.rxandroid'
+    versionCode = 1
+    versionName = '1.0'
+
+    //Sdk and tools
+    minSdkVersion = 19
+    targetSdkVersion = 25
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.2'
+
+    // Application dependencies
+    supportLibraryVersion = '25.0.0'
+    butterKnifeVersion = '7.0.1'
+    daggerVersion = '2.9'
+    anotationApiVersion = '1.2'
+    rxJava1Version = '1.2.1'
+    rxJavaVersion= '2.0.6'
+    rxAndroidVersion = '2.0.1'
+    retrofitVersion = '2.2.0'
+    loggingInterceptorVersion = '3.6.0'
+    retrofit2Rxjava2AdapterVersion = '1.0.0'
+    gsonVersion = '2.8.0'
+    leakcanaryVersion = '1.5'
+    junitVersion = '4.12'
+    mockitoVersion = '2.7.13'
+    robolectricVersion = '3.3'
+    espressoVersion = '2.2.2'
+
 }
