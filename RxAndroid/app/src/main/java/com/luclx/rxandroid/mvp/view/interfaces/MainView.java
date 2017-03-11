@@ -1,6 +1,7 @@
-package com.luclx.rxandroid.mvp.view;
+package com.luclx.rxandroid.mvp.view.interfaces;
 
 import com.luclx.rxandroid.mvp.model.Color;
+import com.luclx.rxandroid.mvp.view.base.BaseView;
 
 import java.util.List;
 

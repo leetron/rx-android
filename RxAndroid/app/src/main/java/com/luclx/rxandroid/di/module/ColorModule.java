@@ -1,12 +1,10 @@
 package com.luclx.rxandroid.di.module;
 
-import com.luclx.rxandroid.data.net.API;
 import com.luclx.rxandroid.di.scope.ActivityScope;
-import com.luclx.rxandroid.mvp.view.MainView;
+import com.luclx.rxandroid.mvp.view.interfaces.MainView;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit2.Retrofit;
 
 /**
  * Created by LucLX on 11/19/16.
@@ -23,6 +21,6 @@ public class ColorModule {
     @ActivityScope
     @Provides
     MainView provideView() {
-        return mainView;
+        return this.mainView;
     }
 }

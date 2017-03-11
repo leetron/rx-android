@@ -1,6 +1,6 @@
 package com.luclx.rxandroid.mvp.presenter;
 
-import com.luclx.rxandroid.mvp.view.BaseView;
+import com.luclx.rxandroid.mvp.view.base.BaseView;
 
 import javax.inject.Inject;
 

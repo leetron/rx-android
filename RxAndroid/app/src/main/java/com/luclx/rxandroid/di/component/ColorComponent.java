@@ -2,7 +2,7 @@ package com.luclx.rxandroid.di.component;
 
 import com.luclx.rxandroid.di.module.ColorModule;
 import com.luclx.rxandroid.di.scope.ActivityScope;
-import com.luclx.rxandroid.mvp.view.activity.MainActivity;
+import com.luclx.rxandroid.mvp.view.fragment.FragmentMain;
 
 import dagger.Component;
 
@@ -13,5 +13,5 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class
         , modules = ColorModule.class)
 public interface ColorComponent {
-    void inject(MainActivity activity);
+    void inject(FragmentMain fragmentMain);
 }

@@ -1,7 +1,7 @@
 package com.luclx.rxandroid.mvp.presenter;
 
 import com.luclx.rxandroid.mvp.model.Color;
-import com.luclx.rxandroid.mvp.view.MainView;
+import com.luclx.rxandroid.mvp.view.interfaces.MainView;
 import com.luclx.rxandroid.usecase.GetColorList;
 
 import java.util.List;
@@ -18,7 +18,6 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class MainPresenter extends BasePresenter<MainView> implements Observer<List<Color>> {
-    //    @Inject
     GetColorList getColorList;
     Observable<List<Color>> colorResponseObserver;
 
